@@ -7,7 +7,7 @@
 ########################################################################################
 # # Loaded libraries
 from pandas import read_csv
-from matplotlib import pyplot
+from matplotlib import pyplot as plt
 import numpy as np
 # import random
 from sklearn.datasets import make_regression
@@ -61,10 +61,13 @@ def sets_of_data(dataset):
     print(y_validation)
     print()
 
-    pyplot.scatter(x_training, y_training)
-    pyplot.xlabel('x-training')  # labels x-axis
-    pyplot.ylabel('y-training')  # labels y-axis
-    pyplot.show()  # displays scatter plot
+    x_train = dataset['x_training'].tolist()
+    y_train = dataset['y_training'].tolist()
+    plt.scatter(x_train, y_train)
+    plt.xlabel('x-training')  # labels x-axis
+    plt.ylabel('y-training')  # labels y-axis
+    plt.show()  # displays scatter plot
+
 
 ###########################################################################################
 
@@ -81,6 +84,22 @@ def gradient_descent_2(alpha, x, y, num_iterations):
         gradient = np.dot(x_transpose, loss) / m
         theta = theta - alpha * gradient  # update
     return theta
+
+
+# def gradient_descent(x, y):
+#     m_curr = b_curr = 0
+#     iterations = 1000
+#     n = len(x)
+#     learn_rate = 0.001
+#     for i in range(iterations):
+#         y_predict = m_curr * x + b_curr
+#         md = -(2/n) * sum(x*(y-y_predict))  # partial derivative with respect to m
+#         bd = -(2/n) * sum(x*(y-y_predict))   # partial derivative with respect to b
+#         m_curr = m_curr - learn_rate * md
+#         b_curr = b_curr - learn_rate * bd
+#         print("m {}, b {}, iteration {}".format(m_curr, b_curr, i))
+
+
 # # # Evaluating Algorithms and Building Models
 #
 #
@@ -130,6 +149,9 @@ def main():
     data = read_csv(r'C:\Users\betha\OneDrive\Documents\CSC5220\Lab2_dataset.csv')  # importing csv
     print(data)
     sets_of_data(data)
+    # x_training = np.array(data['x_training'].tolist())
+    # y_training = np.array(data['y_training'].tolist())
+    # gradient_descent(x_training, y_training)
 
     x, y = make_regression(n_samples=100, n_features=1, n_informative=1,
                            random_state=0, noise=35)
